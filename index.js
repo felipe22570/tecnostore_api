@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.listen(process.env.API_PORT, () => console.log("Running server"));
+app.listen(process.env.API_PORT, () => console.log(`Running server on port ${process.env.API_PORT}`));
 
 app.get("/subcategories/:category", async (req, res) => {
 	const { category } = req.params;
