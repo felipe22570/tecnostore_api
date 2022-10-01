@@ -6,24 +6,10 @@ import { categoriesLink, productsLink } from "./urls.js";
 const app = express();
 dotenv.config();
 
-//Enable CORS
-app.use((req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header(
-		"Access-Control-Allow-Headers",
-		"Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method"
-	);
-	res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-	res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
-	next();
-});
-
-app.listen(process.env.API_PORT, () => console.log(`Running server on port ${process.env.API_PORT}`));
+app.listen(process.env.API_PORT || 3001, () => console.log(`Running server on port ${process.env.API_PORT}`));
 
 app.get("/", (req, res) => {
-	res.status(200).send({
-		hola: "Running",
-	});
+	res.json({ message: "Hola mundo" });
 });
 
 app.get("/subcategories/:category", async (req, res) => {
