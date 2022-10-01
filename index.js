@@ -1,25 +1,22 @@
 import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
-import cors from "cors";
 import { categoriesLink, productsLink } from "./urls.js";
 
 const app = express();
 dotenv.config();
 
 //Enable CORS
-const whiteList = [process.env.FRONTEND_URL];
-const corsOptions = {
-	origin: function (origin, callback) {
-		if (whiteList.includes(origin)) {
-			callback(null, true);
-		} else {
-			callback(new Error("CORS error"));
-		}
-	},
-};
-
-app.use(cors(corsOptions));
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method"
+	);
+	res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+	res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
+	next();
+});
 
 app.listen(process.env.API_PORT, () => console.log("Running server"));
 
